@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B8F16FBA-C3D9-4FE6-A468-C3F4687D2445</string>
+	<key>IDESourceControlProjectName</key>
+	<string>13_OperatorOverloading</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9F7C899AE1B4B481609E8013BB612BAAF4C11BA6</key>
+		<string>https://github.com/LearningLine/intensive-cpp-demos.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>13_OperatorOverloading/13_OperatorOverloading.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9F7C899AE1B4B481609E8013BB612BAAF4C11BA6</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/LearningLine/intensive-cpp-demos.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9F7C899AE1B4B481609E8013BB612BAAF4C11BA6</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9F7C899AE1B4B481609E8013BB612BAAF4C11BA6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>intensive-cpp-demos</string>
+		</dict>
+	</array>
+</dict>
+</plist>
