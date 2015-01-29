@@ -23,81 +23,88 @@ Course Outline
 ----------------------
 
 Day 1
+-----
 Basics
-Introduce program start, variable types, flow of control, and i/o.
+ - Introduce program start, variable types, flow of control, and i/o.
 
 Functions
-Learn functions, parameter passing, references, arrays, global and static variables, defaults, and inline.
+ - Learn functions, parameter passing, references, arrays, global and static variables, defaults, and inline.
 
 Types
-Cover constants, enumerations, typedef, switch, c and c++ strings, using directives, structs, reference variables, constant references, overloading, and template functions.
+ - Cover constants, enumerations, typedef, switch, c and c++ strings, using directives, structs, reference variables, constant references, overloading, and template functions.
 
 Member Functions
-Examine member functions, definition and invokation syntax, and const issues.
+ - Examine member functions, definition and invokation syntax, and const issues.
 
 Inheritance
-Discuss inheritance, data and functions, its design meaning, overriding, and chaining.
+ - Discuss inheritance, data and functions, its design meaning, overriding, and chaining.
 
 Day 2
+-----
 Constructors
-Examine constructors and destructors, multiple and default constructors, array construction, and unnamed temporaries.
+ - Examine constructors and destructors, multiple and default constructors, array construction, and unnamed temporaries.
 
 Protection
-Introduce public, private and protected access specification, friends, and class.
+ - Introduce public, private and protected access specification, friends, and class.
 
 Virtual
-Consider virtual functions, type compatibility, and dynamic binding.
+ - Consider virtual functions, type compatibility, and dynamic binding.
 
 Templates
-Cover template classes, syntax, instantiation, and parameters.
+ - Cover template classes, syntax, instantiation, and parameters.
 
 Day 3
+-----
+
 Pointers
-Examine pointer types and syntax, indexing and relation to arrays, arithmetic, pointers to object, and use in connected data structures.
+ - Examine pointer types and syntax, indexing and relation to arrays, arithmetic, pointers to object, and use in connected data structures.
 
 Dynamic Memory
-Learn dynamic memory, allocation and deallocation, syntax and purpose, arrays, and memory leaks.
+ - Learn dynamic memory, allocation and deallocation, syntax and purpose, arrays, and memory leaks.
 
 Operator
-Cover operator overloading and various operators.
+ - Cover operator overloading and various operators.
 
 Dynamic Memory 2
-Discuss use of dynamic memory by classes, and copy and assignment issues.
+ - Discuss use of dynamic memory by classes, and copy and assignment issues.
 
 Exceptions
-Introduce exceptions, various syntax and use, and interaction with destructors.
+ - Introduce exceptions, various syntax and use, and interaction with destructors.
 
 Day 4
+-----
 Constructors 2
-Introduce construction of aggregate and derived objects, initialization syntax, and automatic constructor generation.
+ - Introduce construction of aggregate and derived objects, initialization syntax, and automatic constructor generation.
 
 Scope
-Examine name collision issues, nested types, static members, and namespaces.
+ - Examine name collision issues, nested types, static members, and namespaces.
 
 Virtual 2
-Cover implementation of dynamic binding, use in writing generic code, abstract operations, pure virtual functions, and virtual destructors.
+ - Cover implementation of dynamic binding, use in writing generic code, abstract operations, pure virtual functions, and virtual destructors.
 
 Inheritance 2
-Discuss multiple and private inheritance.
+ - Discuss multiple and private inheritance.
 
 Type Conversion
-Examine casting, cast operators, dynamic cast, rtti, and explicit.
+ - Examine casting, cast operators, dynamic cast, rtti, and explicit.
 
 Functions 2
-Learn function objects, overloading operator function call, pointers to global functions and member functions, and callback-based notification.
+ - Learn function objects, overloading operator function call, pointers to global functions and member functions, and callback-based notification.
 
 Day 5
+-----
+
 Std Containers
-Discuss fundamentals of standard library containers, use, iterators, algorithms, function parameters, nested typedefs, and generic code.
+ - Discuss fundamentals of standard library containers, use, iterators, algorithms, function parameters, nested typedefs, and generic code.
 
 Preprocessor
-Consider preprocessor directives, code selection and generation, and macro parameters.
+ - Consider preprocessor directives, code selection and generation, and macro parameters.
 
 Compilation
-Cover issue in separate compilation, code organization, dependencies, and guards.
+ - Cover issue in separate compilation, code organization, dependencies, and guards.
 
 Patterns
-Introduce idea of design patterns and work through example patterns.
+ - Introduce idea of design patterns and work through example patterns.
 
 Object-Oriented Programming and Design
-Examine principles and concepts in object-oriented programming and design. Work through typical design example and consider various issues such as decoupling, reuse, and ease of extension. 
+ - Examine principles and concepts in object-oriented programming and design. Work through typical design example and consider various issues such as decoupling, reuse, and ease of extension. 
