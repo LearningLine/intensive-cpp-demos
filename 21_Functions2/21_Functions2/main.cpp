@@ -31,85 +31,161 @@ void print(Iter begin, Iter end)
     std::cout << "\n";
 }
 
-//typedef void (*FUNC)(int&);
-
-template<typename Iter, typename FUNC>
-void myForEach(Iter begin, Iter end, FUNC func)
-{
-    while (begin != end) {
-        func(*begin); ++begin;
-    }
-}
-
-bool gt(int l, int r)
-{
-    return l > r;
-}
-
-bool isEven(int val)
-{
-    return val % 2 == 0;
-}
-
 struct IsMultOf
 {
     int mult;
     IsMultOf(int m) : mult(m) {}
-    
+
     bool operator()(int val)
     {
         return val % mult == 0;
     }
 };
 
-bool isMultOf3(int val)
+void process(std::vector<int> v, int mult)
 {
-    return val % 3 == 0;
+    auto c = std::count_if(v.begin(), v.end(),
+                           [mult](int val) -> bool {
+                               return val % mult == 0;
+                           }
+                           );
+//    auto c = std::count_if(v.begin(), v.end(),
+//                           IsMultOf(mult)
+//                           );
+    
+    std::cout << "Number of mults of " << mult << "'s is " << c << "\n";
 }
 
-struct AddNum
+int main()
 {
-    int numToAdd;
-    AddNum(int num) : numToAdd(num) {}
-    void operator()(int& val) {
-        val += numToAdd;
-    }
-};
-
-void addTwo(int& val) {
-    val += 2;
+    auto v = getRandomInts(1, 100, 15);
+    
+    print(v.begin(), v.end());
+    std::sort(v.begin(), v.end(), [](int l, int r) { return l > r; });
+    print(v.begin(), v.end());
+    
+    process(v, 6);
+    
+    int a = 3;
+    auto lam = [a](int& x) { x += a; };
+    
+    int z = 13;
+    lam(z);
+    lam(z);
+    std::cout << "z is now " << z << "\n";
 }
 
-int main() {
-    std::vector<int> v = getRandomInts(1, 100, 20);
-    
-    print(v.begin(), v.end());
-    
-    std::sort(v.begin(), v.end(), gt);
-    
-    print(v.begin(), v.end());
-    
-    auto c = std::count_if(v.begin(), v.end(), IsMultOf(6));
-    
-    std::cout << "Number of multiples is " << c << "\n";
-    
-    myForEach(v.begin(), v.end(), addTwo);
-    print(v.begin(), v.end());
+//struct Person
+//{
+//    std::string name_;
+//    int age_;
+//};
+//
+//bool operator==(Person const& l, Person const& r)
+//{
+//    return l.name_ == r.name_ && l.age_ == r.age_;
+//}
+//
+//namespace std {
+//    template<>
+//    struct hash<Person>
+//    {
+//        std::size_t operator()(Person const& p) const
+//        {
+//            return std::hash<std::string>()(p.name_);
+//        }
+//    };
+//}
+//
+//
+//int main()
+//{
+//    std::unordered_set<Person> people;
+//    
+//    people.insert(Person{"Bradley", 25});
+//    
+//    return 0;
+//}
 
-    
-    AddNum addThree(3);
-    
-    int x = 5;
-    
-    addThree(x);
-    
-    std::cout << "x is now " << x << "\n";
-    
-    myForEach(v.begin(), v.end(), AddNum(17));
-    print(v.begin(), v.end());
-
-    return 0;
-}
+////typedef void (*FUNC)(int&);
+//
+//template<typename Iter, typename FUNC>
+//void myForEach(Iter begin, Iter end, FUNC func)
+//{
+//    while (begin != end) {
+//        func(*begin); ++begin;
+//    }
+//}
+//
+//bool gt(int l, int r)
+//{
+//    return l > r;
+//}
+//
+//bool isEven(int val)
+//{
+//    return val % 2 == 0;
+//}
+//
+//struct IsMultOf
+//{
+//    int mult;
+//    IsMultOf(int m) : mult(m) {}
+//    
+//    bool operator()(int val)
+//    {
+//        return val % mult == 0;
+//    }
+//};
+//
+//bool isMultOf3(int val)
+//{
+//    return val % 3 == 0;
+//}
+//
+//struct AddNum
+//{
+//    int numToAdd;
+//    AddNum(int num) : numToAdd(num) {}
+//    void operator()(int& val) {
+//        val += numToAdd;
+//    }
+//};
+//
+//void addTwo(int& val) {
+//    val += 2;
+//}
+//
+//int main() {
+//    std::vector<int> v = getRandomInts(1, 100, 20);
+//    
+//    print(v.begin(), v.end());
+//    
+//    std::sort(v.begin(), v.end(), gt);
+//    
+//    print(v.begin(), v.end());
+//    
+//    auto c = std::count_if(v.begin(), v.end(), IsMultOf(6));
+//    
+//    std::cout << "Number of multiples is " << c << "\n";
+//    
+//    myForEach(v.begin(), v.end(), addTwo);
+//    print(v.begin(), v.end());
+//
+//    
+//    AddNum addThree(3);
+//    
+//    int x = 5;
+//    
+//    addThree(x);
+//    
+//    std::cout << "x is now " << x << "\n";
+//    
+//    myForEach(v.begin(), v.end(), AddNum(17));
+//    print(v.begin(), v.end());
+//
+//    return 0;
+//}
 
 //struct Person
 //{
