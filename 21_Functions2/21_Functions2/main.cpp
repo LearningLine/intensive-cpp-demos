@@ -8,6 +8,59 @@
 #include <set>
 #include <vector>
 
+std::vector<int> getRandomInts(int start, int end, int num);
+
+template<typename Iter>
+void print(Iter begin, Iter end);
+
+double sumSquares(double x, double y)
+{
+    return x * x + y * y;
+}
+
+struct Door
+{
+    Door(int _id) : id(_id) {}
+    int id;
+    void open() { std::cout << "open " << id << "\n"; }
+    void close() { std::cout << "close" << id << "\n"; }
+};
+
+int main()
+{
+    std::vector<Door> doors {1,2,3,4,56,4,2,};
+
+    doors[3].open();
+    std::for_each(doors.begin(), doors.end(),
+                  [](Door& d) {
+                      d.close();
+                  }
+                  );
+    
+    auto lam = [](double x, double y)
+    {
+        return x * x + y * y;
+    };
+    
+    auto lam2 = [](double x, double y)
+    {
+        return x * x + y * y;
+    };
+    
+    std::cout << typeid(lam).name() << "\n";
+    std::cout << typeid(lam2).name() << "\n";
+    
+//    auto fn = sumSquares;
+//    
+//    std::cout << fn(3, 4) << "\n";
+}
+
+
+
+
+
+
+
 std::random_device rd;
 std::mt19937 gen(rd());
 
@@ -15,7 +68,7 @@ std::vector<int> getRandomInts(int start, int end, int num)
 {
     std::vector<int> ret;
     std::uniform_int_distribution<> dis(start, end);
-
+    
     for (int i = 0; i < num; ++i) {
         ret.push_back(dis(gen));
     }
@@ -31,49 +84,74 @@ void print(Iter begin, Iter end)
     std::cout << "\n";
 }
 
-struct IsMultOf
-{
-    int mult;
-    IsMultOf(int m) : mult(m) {}
 
-    bool operator()(int val)
-    {
-        return val % mult == 0;
-    }
-};
+//struct Shape { };
+//struct Circle : public Shape { };
+//
+//template<typename Iter>
+//void cleanup(Iter begin, Iter end)
+//{
+//    while (begin != end) {
+//        delete *begin; ++begin;
+//    }
+//}
+//void process()
+//{
+//    Shape* a[3];
+//    
+//    a[0] = new Shape;
+//    a[1] = new Circle;
+//    a[2] = new Circle;
+//    
+//    cleanup(a, a+3);
+//}
+//
 
-void process(std::vector<int> v, int mult)
-{
-    auto c = std::count_if(v.begin(), v.end(),
-                           [mult](int val) -> bool {
-                               return val % mult == 0;
-                           }
-                           );
+
+
+//struct IsMultOf
+//{
+//    int mult;
+//    IsMultOf(int m) : mult(m) {}
+//
+//    bool operator()(int val)
+//    {
+//        return val % mult == 0;
+//    }
+//};
+//
+//void process(std::vector<int> v, int mult)
+//{
 //    auto c = std::count_if(v.begin(), v.end(),
-//                           IsMultOf(mult)
+//                           [mult](int val) -> bool {
+//                               return val % mult == 0;
+//                           }
 //                           );
-    
-    std::cout << "Number of mults of " << mult << "'s is " << c << "\n";
-}
-
-int main()
-{
-    auto v = getRandomInts(1, 100, 15);
-    
-    print(v.begin(), v.end());
-    std::sort(v.begin(), v.end(), [](int l, int r) { return l > r; });
-    print(v.begin(), v.end());
-    
-    process(v, 6);
-    
-    int a = 3;
-    auto lam = [a](int& x) { x += a; };
-    
-    int z = 13;
-    lam(z);
-    lam(z);
-    std::cout << "z is now " << z << "\n";
-}
+////    auto c = std::count_if(v.begin(), v.end(),
+////                           IsMultOf(mult)
+////                           );
+//    
+//    std::cout << "Number of mults of " << mult << "'s is " << c << "\n";
+//}
+//
+//int main()
+//{
+//    auto v = getRandomInts(1, 100, 15);
+//    
+//    print(v.begin(), v.end());
+//    std::sort(v.begin(), v.end(), [](int l, int r) { return l > r; });
+//    print(v.begin(), v.end());
+//    
+//    process(v, 6);
+//    
+//    int a = 3;
+//    auto lam = [a](int& x) { x += a; };
+//    
+//    int z = 13;
+//    lam(z);
+//    lam(z);
+//    std::cout << "z is now " << z << "\n";
+//}
 
 //struct Person
 //{
