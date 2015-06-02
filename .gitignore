@@ -26,3 +26,6 @@
 *.exe
 *.out
 *.app
+
+# Xcode output Directories 
+**/DerivedData
