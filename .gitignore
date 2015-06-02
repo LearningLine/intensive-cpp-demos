@@ -27,5 +27,8 @@
 *.out
 *.app
 
+# Xcode project
+*.xcodeproj
+
 # Xcode output Directories 
 **/DerivedData
