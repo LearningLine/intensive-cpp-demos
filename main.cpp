@@ -1,5 +1,101 @@
 #if 1
 #include <iostream>
+#include <string>
+
+struct Person {
+    std::string name_; int age_;
+    
+    void birthday() {
+        ++age_;
+    }
+    
+    void print() const {
+        std::cout << name_ << " is " << age_ << " years young.";
+    }
+};
+
+struct Student :  public Person {
+    int id_;
+    void print() const {
+        Person::print();
+        std::cout << " Id is " << id_;
+    }
+};
+
+struct Employee : public Person {
+    std::string dept_; double salary_;
+    
+    void promote() {
+        salary_ *= 1.1;
+    }
+};
+
+struct Staff : Employee {
+    
+};
+
+struct Faculty : Employee {
+    bool tenure_ = false;
+    
+    void promote() {
+        salary_ *= 1.2;
+        tenure_ = true;
+    }
+};
+
+
+void process(Person const & p) {
+    std::cout << p.name_ << ":" << p.age_ << "\n";
+    p.print();
+}
+
+int main()
+{
+    Student s;
+    s.name_ = "Bradley";
+    s.age_ = 25;
+    s.id_ = 1001;
+    
+    s.birthday();
+    s.print();
+    
+    process(s);
+    
+    std::cout << s.age_ << "\n";
+    
+    Staff e;
+    e.name_ = "Paul";
+    e.age_ = 32;
+    e.dept_ = "IS";
+    e.salary_ = 1800;
+    
+    e.promote();
+    
+    std::cout << e.salary_ << "\n";
+    
+    Faculty f;
+    f.name_ = "Paul";
+    f.age_ = 32;
+    f.dept_ = "IS";
+    f.salary_ = 1800;
+    
+    f.promote();
+    
+    std::cout << f.salary_ << "\n";
+    
+}
+
+
+
+
+
+#endif
+
+
+
+
+#if 0
+#include <iostream>
 #include "Time.h"
 
 void print(Time const & t) {
