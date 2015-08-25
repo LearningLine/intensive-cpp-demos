@@ -1,22 +1,78 @@
 #if 1
 #include <iostream>
 #include <string>
+#include "Set.h"
+
+int main()
+{
+    Set<> s;
+    Set<char, 100> t;
+    
+    s.add('a');
+    s.add('b');
+    s.add('z');
+    s.add('x');
+    s.add('a');
+    s.add('z');
+
+    s.print();
+    
+    Set<int, 100> si;
+    
+    si.add(2);
+    si.add(5);
+    si.add(17);
+    si.add(3);
+    si.add(2);
+    si.add(17);
+    
+    si.print();
+
+//    SetChar s;
+//    
+//    s.add('a');
+//    s.add('b');
+//    s.add('z');
+//    s.add('x');
+//    s.add('a');
+//    s.add('z');
+//    
+//    s.print();
+//    
+//    SetInt si;
+//    
+//    si.add(2);
+//    si.add(5);
+//    si.add(17);
+//    si.add(3);
+//    si.add(2);
+//    si.add(17);
+//    
+//    si.print();
+}
+
+
+#endif
+
+#if 0
+#include <iostream>
+#include <string>
 
 struct Person {
     std::string name_; int age_;
     
-    void birthday() {
+    virtual void birthday() final {
         ++age_;
     }
     
-    void print() const {
+    virtual void print() const {
         std::cout << name_ << " is " << age_ << " years young.";
     }
 };
 
 struct Student :  public Person {
     int id_;
-    void print() const {
+    void print() const override {
         Person::print();
         std::cout << " Id is " << id_;
     }
@@ -25,6 +81,10 @@ struct Student :  public Person {
 struct Employee : public Person {
     std::string dept_; double salary_;
     
+    virtual void print() const override {
+        Person::print();
+        std::cout << " Dept : " << dept_ << " Salary : " << salary_;
+    }
     void promote() {
         salary_ *= 1.1;
     }
@@ -37,6 +97,11 @@ struct Staff : Employee {
 struct Faculty : Employee {
     bool tenure_ = false;
     
+    void print() const {
+        Employee::print();
+        std::cout << " Has tenure " << std::boolalpha << tenure_;
+    }
+    
     void promote() {
         salary_ *= 1.2;
         tenure_ = true;
@@ -45,8 +110,8 @@ struct Faculty : Employee {
 
 
 void process(Person const & p) {
-    std::cout << p.name_ << ":" << p.age_ << "\n";
     p.print();
+    std::cout << "\n";
 }
 
 int main()
@@ -57,11 +122,9 @@ int main()
     s.id_ = 1001;
     
     s.birthday();
-    s.print();
+//    s.print();
+//    std::cout << "\n";
     
-    process(s);
-    
-    std::cout << s.age_ << "\n";
     
     Staff e;
     e.name_ = "Paul";
@@ -71,18 +134,22 @@ int main()
     
     e.promote();
     
-    std::cout << e.salary_ << "\n";
+   // std::cout << e.salary_ << "\n";
     
     Faculty f;
-    f.name_ = "Paul";
+    f.name_ = "Mike";
     f.age_ = 32;
     f.dept_ = "IS";
     f.salary_ = 1800;
     
     f.promote();
     
-    std::cout << f.salary_ << "\n";
+    //std::cout << f.salary_ << "\n";
     
+    process(s);
+    process(e);
+    process(f);
+
 }
 
 
