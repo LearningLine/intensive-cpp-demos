@@ -1,6 +1,90 @@
 #if 1
 #include <iostream>
 #include <string>
+
+void process(double* a)
+{
+    while (*a != 0) {
+        std::cout << *a << " at " << a << "\n";
+        ++a;
+    }
+    std::cout << "\n";
+}
+
+void print(double * a, int size) {
+    for (int i = 0; i < size; ++i, ++a) {
+        std::cout << *a << " ";
+    }
+    std::cout << "\n";
+}
+
+void print(double * begin, double * end) {
+    while (begin != end) {
+        std::cout << *begin << " ";
+        ++begin;
+    }
+    std::cout << "\n";
+}
+
+struct Point {
+    int x, y;
+    
+    void scale(int s) {
+        this->x *= s;
+        this->y *= s;
+    }
+};
+
+int main()
+{
+    
+    Point q; q.x = 10; q.y = 15;
+    
+    Point * p = &q;
+    
+    q.x = 12;
+    
+    p->x = 15;
+    
+    std::cout << q.x << "\n";
+    
+    
+//    int x = 7;
+//    double y = 0.0;
+//    char c = 'a';
+//    bool b = true;
+//    
+//    int*     p = &x;
+//    
+//    std::cout << x << "\n";
+//    std::cout << p << "\n";
+//    std::cout << *p << "\n";
+//    
+//    *p = 13;
+//    
+//    std::cout << x << "\n";
+//    
+//    double a[] = {2,3,42,24,12,131,0};
+//    
+//    process(a);
+//
+//    int size = sizeof(a)/sizeof(*a);
+//    print(a, size);
+//    
+//    double * end = a + size;
+//    print(a, end);
+}
+
+
+
+
+#endif
+
+
+
+#if 0
+#include <iostream>
+#include <string>
 #include "Set.h"
 
 int main()
