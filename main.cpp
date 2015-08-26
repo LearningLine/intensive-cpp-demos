@@ -1,5 +1,53 @@
 #if 1
 #include <iostream>
+#include "Set.h"
+
+void process(Set<int> s) {
+    
+}
+
+int main()
+{
+    Set<int> s;
+    
+    for (int i = 0; i < 10; ++i) {
+        s.add(i * i);
+    }
+    
+    Set<int> t;
+    
+    for (int i = 4; i < 10; ++i) {
+        t.add(i * i * i);
+    }
+    
+    
+    t.print();
+    std::cout << "\n";
+    s.print();
+    
+    t = s;
+    
+    Set<int> & u = s;
+    
+    t.elements_[4] = 777;
+    
+    s.print();
+    
+    s = u;
+    s = s;
+    
+    process(t);
+    
+    return 0;
+}
+
+
+
+
+#endif
+
+#if 0
+#include <iostream>
 #include <memory>
 #include <array>
 #include <vector>
