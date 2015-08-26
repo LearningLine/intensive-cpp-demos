@@ -1,4 +1,222 @@
 #if 1
+#include <stdlib.h>
+#include <iostream>
+#include <memory>
+#include <vector>
+
+using namespace std;
+
+class Character
+{
+public:
+    Character() { ++Character::count;  }
+    Character(std::string name, int health)
+    : m_name(name), m_health(health) { ++Character::count;  }
+    int health() { return m_health; }
+    std::string name() { return m_name; }
+    virtual void strike(Character& other) {
+        //standard hit takes one health point
+        other.takeHit(1);
+    }
+    void takeHit(int hit) {
+        m_health-=hit; if (m_health < 0) m_health = 0;
+    }
+    void displayHealth() {
+        cout << m_name
+        << " takes a hit. Down to " << m_health
+        << " hit points." << endl;
+        if (m_health == 0) { cout << m_name << " is dead." << endl;}
+    }
+    virtual ~Character() { --Character::count; }
+    
+    static size_t live() {
+        return Character::count;
+    }
+    
+private:
+    static size_t count;
+    std::string m_name;
+    int m_health;
+};
+
+size_t Character::count = 0;
+
+
+struct Monster : Character
+{
+    Monster(std::string name, int health) : Character(name, health) {}
+};
+
+struct Human : Character
+{
+    Human(std::string name, int health) : Character(name, health) {}
+};
+
+struct Zombie : public Monster
+{
+    Zombie(std::string name, int health) : Monster(name, health) {}
+};
+
+struct Creeper : Monster
+{
+    Creeper(std::string name, int health) : Monster(name, health) {}
+    virtual void strike(Character& other) {
+        // Creepers are unusually strong their hit takes two health points
+        other.takeHit(2);
+    }
+};
+
+std::unique_ptr<Character> spawn()
+{
+    if (rand() % 2 == 0)
+        return std::unique_ptr<Character>(new Zombie("Zombie", rand() % 15 + 2));
+    else
+        return std::unique_ptr<Character>(new Creeper("Creeper", rand() % 10 + 2));
+}
+
+bool battle(std::unique_ptr<Character> hero, int numSpawn)
+{
+    //battle numSpawn spawn at the same time
+    //Character** foes = new Character*[numSpawn];
+    auto foes = std::vector<std::unique_ptr<Character>>(numSpawn);
+//    auto foes =
+//    std::unique_ptr<std::unique_ptr<Character>[]>(new std::unique_ptr<Character>[numSpawn]);
+    
+    for (int i = 0; i < numSpawn; ++i)
+    {
+        foes[i] = spawn();
+        
+    }
+    int liveFoes = numSpawn;
+    
+    do
+    {
+        
+        //pick a random foe to fight
+        std::unique_ptr<Character>& foe = foes[rand() % numSpawn];
+        
+        if (!foe) {
+            continue;
+        }
+        
+        
+        if (rand() % 2 == 0) {
+            hero->strike(*foe);
+            foe->displayHealth();
+        }
+        else {
+            foe->strike(*hero);
+            hero->displayHealth();
+        }
+        
+        if (foe->health() == 0) {
+            foe = nullptr;
+            --liveFoes;
+        }
+        
+        if (hero->health() == 0) {
+            return false;
+        }
+    } while (hero->health() != 0 && liveFoes > 0);
+    
+    return true;
+}
+
+int main()
+{
+    srand(time(0));
+    
+    if (battle(std::unique_ptr<Character> (new Human("Bradley", 120)), 10)) {
+        cout << "Bradley has defeated the spawn!" << endl;
+    }
+    
+    cout << "Number of Character instances still in memory: "
+    << Character::live() << endl;
+}
+
+#endif
+
+#if 0
+#include <iostream>
+#include <memory>
+#include <array>
+#include <vector>
+
+struct Point {
+    int x, y;
+    Point() {std::cout << "Point()\n";}
+    ~Point() {std::cout << "~Point()\n";}
+    void print() const { std::cout << "(" << x << "," << y << ")\n"; }
+};
+
+struct One {
+    One() {std::cout << "One()\n";}
+    ~One() {std::cout << "~One()\n";}
+};
+
+std::unique_ptr<Point> makePoint()
+{
+    return std::unique_ptr<Point>(new Point);
+}
+
+void process(int x) {
+    std::unique_ptr<Point> p = makePoint();
+    
+ //   std::unique_ptr<Point> p2(p);
+    
+    if (x % 2 == 0) {
+        p->x = 10;
+        p->y = 20;
+        p->print();
+      return;
+    }
+    
+    if (x % 3 == 0) {
+        p->x = 30;
+        p->y = 70;
+        p->print();
+        return;
+    }
+    p->x = 20;
+    p->y = 90;
+    p->print();
+}
+
+int main()
+{
+//    process(4);
+//    process(9);
+//    
+//    std::unique_ptr<Point[]> a(new Point[5]);
+//    
+//    std::vector<Point> arr(5);
+//    
+//    a[0].x = 0;
+//    a[0] = Point();
+//    
+//    arr[0].x = 0;
+//    arr[0] = Point();
+    
+    
+    std::shared_ptr<Point> sp1(new Point);
+    std::shared_ptr<Point> sp2(sp1);
+   
+    sp1->x = 10;
+    sp2->y = 20;
+    sp1->print();
+    
+
+}
+
+
+
+
+
+
+
+#endif
+
+#if 0
 #include <iostream>
 #include <vector>
 
