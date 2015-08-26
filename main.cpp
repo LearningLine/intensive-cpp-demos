@@ -1,5 +1,51 @@
 #if 1
 #include <iostream>
+#include <vector>
+
+void process() {
+    int* y = new int(5);
+    std::cout << y << "\n";
+    delete y;
+    double* z = new double(5);
+ 
+    std::cout << z << "\n";
+    
+    delete z;
+}
+
+struct MyType {
+    MyType() { std::cout << "MyType()\n"; }
+    ~MyType() { std::cout << "~MyType()\n"; }
+    int data_ = 5;
+};
+
+int main()
+{
+    //process();
+    
+    MyType * a = new MyType[5];
+    
+    
+    for (int i = 0; i < 5; ++i)
+    {
+        std::cout << a[i].data_ << " ";
+    }
+    std::cout << "\n";
+    
+    delete [] a;
+    
+}
+
+
+
+
+
+#endif
+
+
+
+#if 0
+#include <iostream>
 #include <string>
 
 void process(double* a)
