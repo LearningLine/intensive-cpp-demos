@@ -1,5 +1,68 @@
 #if 1
+#include <iostream>
+#include <memory>
+#include <array>
+#include <vector>
+
+struct Point {
+    int x, y;
+    Point(int X = 0, int Y = 0) { x = X; y = Y; }
+    
+    Point& operator+=(Point const & other) {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+    
+    Point& operator-=(Point const & other) {
+        x -= other.x;
+        y -= other.y;
+        return *this;
+    }
+};
+
+std::ostream& operator<<(std::ostream& os, Point const & p) {
+    os << "(" << p.x << "," << p.y << ")";
+    return os;
+}
+
+Point operator+(Point const & a, Point const & b) {
+    Point tmp(a);
+    tmp += b;
+    return tmp;
+}
+
+Point operator*(int s, Point const & b) {
+    return Point(s * b.x, s * b.y);
+}
+
+Point operator-(Point const & a, Point const & b) {
+    Point tmp(a);
+    tmp -= b;
+    return tmp;
+}
+
+Point operator-(Point const & a) {
+    return Point(-a.x, -a.y);
+}
+
+int main()
+{
+    Point p(9,1), q(2,4), t(1,7);
+    
+
+    Point z = p + q - t;
+    
+    Point h = -z;
+    std::cout << "The value of h is " << h << "\n";
+}
+
+
+#endif
+
+#if 0
 #include <stdlib.h>
+#include <ctime>
 #include <iostream>
 #include <memory>
 #include <vector>
