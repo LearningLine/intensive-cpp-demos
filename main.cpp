@@ -1,5 +1,218 @@
 #if 1
 #include <iostream>
+
+class Empty
+{
+    Empty() {}
+    Empty(Empty const&) {}
+    ~Empty() {}
+    Empty& operator=(Empty const&) {return *this;}
+};
+
+struct CopyBase
+{
+    CopyBase() { std::cout << "CopyBase()\n"; }
+    CopyBase(CopyBase const&) { std::cout << "CopyBase(copy)\n"; }
+};
+
+struct CopySub : public CopyBase
+{
+    CopySub() { std::cout << "CopySub()\n"; }
+    CopySub(CopySub const& other) : CopyBase(other) { std::cout << "CopySub(copy)\n"; }
+};
+
+
+
+
+struct Bag
+{
+    int size_;
+    int capacity_;
+    int* elements_;
+    
+    Bag(int size, int initialVal)
+    : size_(size), capacity_(size_), elements_(new int[capacity_])
+    {
+    }
+};
+
+Bag b(10, 2);
+
+
+struct Address
+{
+    std::string street_;
+    std::string city_;
+    
+    Address() {std::cout << "Address()\n";}
+    
+    Address(std::string street, std::string city)
+    : street_(street), city_(city) {
+        std::cout << "Address(street,city)\n";
+    }
+};
+struct Person
+{
+    std::string name_;
+    int age_;
+    Person(std::string name, int age) : name_(name), age_(age)
+    {
+        std::cout << "Person(name, age)\n";
+    }
+
+};
+
+struct Customer : public Person
+{
+    Address address_;
+    Customer() : Person("unknown", 25) {
+        std::cout << "Customer()\n";
+    }
+    Customer(Address address) : Person("unknown", 25) {
+        address_ = address;
+        std::cout << "Customer(address)\n";
+    }
+    Customer(std::string street, std::string city)
+    : address_(street, city),
+      Person("unknown", 25)
+    {
+        std::cout << "Customer(address)\n";
+    }
+};
+
+void process(CopySub s) {}
+
+int main()
+{
+   // Customer c("street", "city");
+    
+    CopySub s;
+
+    process(s);
+}
+
+
+
+#endif
+
+
+
+#if 0
+#include <iostream>
+
+class Two
+{
+public:
+    void bar();
+};
+class One
+{
+    friend void process();
+    
+public:
+};
+void process()  {
+    std::cout << "hello\n";
+}
+int main()
+{
+    process();
+}
+
+
+
+
+#endif
+
+
+
+#if 0
+#include <iostream>
+#include <cmath>
+
+const int SQRT_DOMAIN_ERROR = 13;
+
+double squareroot(double d)
+{
+    if (d < 0) {
+        throw SQRT_DOMAIN_ERROR;
+    }
+    
+    return std::sqrt(d);
+}
+
+void process(double d)
+{
+    try
+    {
+        double x = squareroot(d);
+        std::cout << x << " is the sqrt of " << d << "\n";
+    }
+    catch (int xcpt)
+    {
+        if (xcpt == SQRT_DOMAIN_ERROR) {
+            std::cout << "Sqrt domain error\n";
+        }
+    }
+}
+
+struct One { int data_; One(int data = 1) { data_ = data; }};
+struct Sub : public One
+{ int extra_; Sub(int data = 1) { data_ = data; extra_ = 10; }};
+
+struct Two { int data_; Two(int data = 1) { data_ = data; }};
+
+void process(int x) {
+    if (x % 2 == 0) {
+        throw Sub(4);
+    } else if (x % 3 == 0) {
+        throw Two(13);
+    }
+    std::cout << "exited normally\n";
+}
+
+void process() {
+    try {
+        process(4);
+    } catch (One& o) {
+        std::cout << "One :" << &o << ": data : " << o.data_ << "\n";
+        o.data_ *= 5;
+        
+        throw;
+        
+    } catch (...) {
+        
+        throw;
+    }
+}
+
+void func() {
+    try {
+        process();
+    } catch (Two& t) {
+        std::cout << "Two " << t.data_ << "\n";
+    } catch (Sub& o) {
+        std::cout << "Outer Sub :" << &o << ": data : " << o.data_ << " extra " << o.extra_ << "\n";
+    } catch (One& o) {
+        std::cout << "Outer One :" << &o << ": data : " << o.data_ <<  "\n";
+    }
+}
+int main()
+{
+    func();
+ 
+}
+
+
+
+#endif
+
+
+
+
+
+#if 0
+#include <iostream>
 #include "Set.h"
 
 void process(Set<int> s) {
