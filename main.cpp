@@ -1,6 +1,118 @@
 #if 1
 #include <iostream>
 
+struct Activity
+{
+    void start()  { std::cout << "setup info\n"; doStart(); }
+    void stop()  { doStop(); std::cout << "teardown info\n"; }
+private:
+    virtual void doStart() = 0;
+    virtual void doStop() = 0;
+
+};
+
+struct MyActivity : public Activity
+{
+    virtual void start() { std::cout << "my start override\n"; }
+    virtual void doStart() { std::cout << "my start code\n"; }
+    virtual void doStop()  { std::cout << "my stop code\n"; }
+};
+
+void process(Activity& a) {
+    a.start();
+    a.stop();
+}
+
+int main()
+{
+    MyActivity ma;
+    
+    process(ma);
+    
+}
+
+
+
+
+
+
+
+
+#endif
+
+#if 0
+#include <iostream>
+
+struct Shape {
+    virtual void draw() = 0;
+    virtual ~Shape() { std::cout << "~Shape\n"; }
+};
+
+void Shape::draw() {
+    std::cout << "default draw code\n";
+}
+
+struct Circle : Shape {
+    void draw() { Shape::draw(); std::cout << "Draw Circle\n"; }
+    ~Circle() { std::cout << "~Circle\n"; }
+};
+
+struct Line : Shape {
+    void draw() { std::cout << "Draw Line\n"; }
+    ~Line() { std::cout << "~Line\n"; }
+};
+
+struct Rect : Shape {
+    void draw() { std::cout << "Draw Rect\n"; }
+    ~Rect() { std::cout << "~Rect\n"; }
+};
+
+typedef std::shared_ptr<Shape> ShapeRef;
+
+void render(ShapeRef * begin,  ShapeRef * end) //range of Shapes
+{
+    while (begin != end) {
+        (*begin)->draw();
+        ++begin;
+    }
+    
+}
+
+void cleanup(Shape** begin, Shape** end) {
+    while (begin != end) {
+        delete *begin;
+        ++begin;
+    }
+}
+
+int main()
+{
+    ShapeRef shapes[] {
+        ShapeRef(new Rect), ShapeRef(new Line), ShapeRef(new Circle), ShapeRef(new Line), ShapeRef(new Rect) };
+    
+
+    std::cout << "========\n";
+    shapes[0]->Shape::draw();
+    std::cout << "========\n";
+
+    int size = sizeof(shapes)/sizeof(*shapes);
+    
+    render(shapes, shapes + size);
+    
+//    Circle * c = new Circle;
+//    delete c;
+}
+
+
+
+
+
+#endif
+
+
+#if 0
+#include <iostream>
+
 class Empty
 {
     Empty() {}
