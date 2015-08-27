@@ -1,5 +1,75 @@
 #if 1
 #include <iostream>
+#include "Item.h"
+#include "Set.h"
+
+struct Key
+{
+    enum Type
+    {
+        CTRL, ALT, NONE
+    };
+   Type type;
+};
+
+
+struct Paint
+{
+    enum Type {
+        GLOSS, SEMI, FLAT
+    };
+   Type type;
+};
+
+class List {
+    class Node {
+        
+    };
+public:
+    void append(int val);
+};
+
+namespace Std {
+    class string { public: string(); };
+    class vector;
+}
+
+namespace Std {
+    string::string() {}
+}
+
+using Things::Item;
+//using namespace Things;
+
+void process()
+{
+    using Things::Item;
+    
+    Item x(20,30);
+    
+}
+using namespace Other;
+
+int main()
+{
+    using Things::Item;
+    Item x(2,2);
+    
+//    std::cout << Item::defaultSize() << "\n";
+//    Std::string s;
+//    
+//    Paint::Type t = Paint::GLOSS;
+    
+}
+
+
+
+
+
+#endif
+
+#if 0
+#include <iostream>
 
 struct Activity
 {

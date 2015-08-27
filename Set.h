@@ -3,6 +3,10 @@
 
 #include <iostream>
 
+namespace Other {
+    struct Item {};
+}
+
 template<typename T>
 class Set
 {
