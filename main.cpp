@@ -1,5 +1,185 @@
 #if 1
 #include <iostream>
+
+struct Person {
+    Person(std::string name) : name_(name) {}
+    virtual ~Person() {}
+    
+    std::string getName() const { return name_; }
+    
+    std::string name_;
+};
+struct Student : public Person {
+    int id_;
+    Student() : Person("Student") {}
+};
+struct Employee : public Person {
+    float salary_;
+    Employee() : Person("Employee") {}
+};
+
+struct Rational {
+    int n, d;
+    Rational(int num, int den = 1) : n(num), d(den) {}
+    
+    explicit operator double() const {
+        return n / (double) d;
+    }
+    
+    double asDouble() const {
+        return n / (double) d;
+    }
+};
+
+void update(Person* p) {
+    Student* s = dynamic_cast<Student*>(p);
+    
+    if (s != nullptr) {
+        s->id_ = 1001;
+    } else {
+        std::cout << "Not a student\n";
+    }
+}
+
+void update(Person& p) {
+//    Rational& s = static_cast<Rational&>(p);
+
+    try {
+        Student& s = dynamic_cast<Student&>(p);
+        s.id_ = 1001;
+    } catch (std::bad_cast& e) {
+        std::cout << "Not a student\n";
+    }
+}
+
+void examine(Person* p) {
+    std::cout << p->getName() << "\n";
+}
+
+
+void process(Person const * p) {
+    Person * np = const_cast<Person*>(p);
+    examine(np);
+}
+
+struct Set
+{
+    explicit Set(int capacity) {}
+};
+
+struct Time {
+    Time(int ticks) {}
+};
+
+void process(Set s) {std::cout << "Set\n";}
+//void process(Rational r) {std::cout << "Rational\n";}
+void process(Time t) {std::cout << "Time\n";}
+void process(int d) { std::cout << "int \n"; }
+void process(double d) { std::cout << "double \n"; }
+
+int main()
+{
+    Rational r(3);
+    
+    int i = 5;
+    process(i);
+    
+    process(r.asDouble());
+    process((double)r);
+    
+    
+    
+    
+    
+//    Employee e;
+//    e.salary_ = 1800;
+//    
+//    unsigned char buf[] = {0,1,0,0};
+//    
+//    int const *  id = reinterpret_cast<int const*>(buf);
+//    
+//    std::cout << *id << "\n";
+//    
+//    update(e);
+//    
+//    std::cout << e.salary_ << "\n";
+//    
+//    std::cout << typeid(e).name() << "\n";
+//    std::cout << typeid(&e).name() << "\n";
+//    std::cout << typeid(id).name() << "\n";
+//    std::cout << typeid(*id).name() << "\n";
+    
+}
+
+
+
+
+
+
+
+
+
+#endif
+
+
+#if 0
+#include <iostream>
+
+struct Device {
+    int id_;
+    Device() { std::cout << "Device()\n"; }
+    Device(int id) : id_(id) { std::cout << "Device(" << id_ << ")\n";}
+};
+
+struct Phone : public virtual Device
+{
+    Phone() : Device(10) {std::cout << "Phone()\n";}
+    int number_;
+    void call();
+    int memoryAvail() const;
+};
+
+struct Camera : public virtual Device
+{
+    Camera() : Device(20) {std::cout << "Camera()\n";}
+    int lens_;
+    void shoot();
+    int memoryAvail() const;
+};
+
+class SmartPhone : public Phone, public Camera {
+public:
+    SmartPhone() : Device(30), Phone(), Camera() {std::cout << "SmartPhone()\n"; }
+    int data_;
+    void sendPicture();
+};
+
+int main()
+{
+    Camera c;
+    SmartPhone s;
+    s.number_ = 5551212;
+    s.lens_ = 360;
+    
+    s.Phone::id_ = 1;
+    s.Camera::id_ = 2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#endif
+
+#if 0
+#include <iostream>
 #include "Item.h"
 #include "Set.h"
 
