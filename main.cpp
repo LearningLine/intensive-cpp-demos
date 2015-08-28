@@ -1,6 +1,121 @@
 #if 1
 #include <iostream>
 
+struct Door
+{
+    void open() { std::cout << "Open\n"; }
+    void close() { std::cout << "Close\n"; }
+};
+
+struct Sensor
+{
+    typedef void (*Callback)();
+    
+    void trigger() { action_(); }
+    void setCallback(Callback action) { action_ = action; }
+    
+    Callback action_;
+};
+
+int global = 4;
+
+int* pglobal = &global;
+
+typedef int* PInt;
+
+void print(int v) {
+    std::cout << v << " ";
+}
+
+void square(int& v)
+{
+    v *= v;
+}
+
+void (* pFunc)(int);
+
+typedef void (* PFunc)(int&);
+
+template<typename Func>
+void forEach(int* begin, int *end, Func func)
+{
+    while (begin != end) {
+        func(*begin);
+        ++begin;
+    }
+}
+
+typedef void (Door::*MFP)();
+
+void forEach(Door* begin, Door *end, MFP func)
+{
+    while (begin != end) {
+        ((*begin).*func)();
+        ++begin;
+    }
+}
+
+typedef bool (*FindFunc)(int);
+template<typename Pred>
+int* findIf(int* begin, int* end, Pred fn)
+{
+    while (begin != end) {
+        if (fn(*begin)) {
+            break;
+        }
+        ++begin;
+    }
+    return begin;
+}
+
+struct EqualTo
+{
+    int val;
+    EqualTo(int v) : val(v) {}
+  
+    bool operator()(int x) {
+        return val == x;
+    }
+};
+
+int main()
+{
+    int arr[] {2,4,52,42,35,3,4};
+    
+    int * end = arr + sizeof(arr)/sizeof(*arr);
+
+    
+    int * p = findIf(arr, end, EqualTo(3939));
+    
+    if (p == end) {
+        std::cout << "Not found\n";
+    } else {
+        std::cout << "Found at " << p << "\n";
+    }
+    
+//    Door doors[10];
+//    
+//    forEach(doors, doors + 10, &Door::open);
+//    forEach(doors, doors + 10, &Door::close);
+//    
+//    
+//    forEach(arr, arr + sizeof(arr)/sizeof(*arr), square);
+//    forEach(arr, arr + sizeof(arr)/sizeof(*arr), print);
+//    
+//    pFunc = print;
+//    
+}
+
+
+
+
+
+
+#endif
+
+#if 0
+#include <iostream>
+
 struct Person {
     Person(std::string name) : name_(name) {}
     virtual ~Person() {}
