@@ -1,5 +1,134 @@
 #if 1
 #include <iostream>
+#include <vector>
+#include <set>
+#include <list>
+
+struct MyStruct {
+    int data_;
+    MyStruct(int d) : data_(d) {}
+};
+
+bool operator<(MyStruct const & lhs, MyStruct const & rhs) {
+    return lhs.data_ < rhs.data_;
+}
+
+void print(MyStruct const& x) { std::cout << x.data_ << " ";}
+
+int main()
+{
+    std::set<MyStruct> s;
+    
+    s.insert(1);
+    s.insert(7);
+    s.insert(4);
+    s.insert(1);
+    s.insert(7);
+    s.insert(4);
+    s.insert(3);
+    s.insert(9);
+    
+    
+    
+    std::for_each(s.begin(), s.end(), print);
+    
+//    typedef std::set<MyStruct>::iterator Iter;
+//    for (Iter it = s.begin(); it != s.end(); ++it) {
+//        std::cout << it->data_ << " ";
+//    }
+    std::cout << "\n";
+
+//    for (auto val : s) {
+//        std::cout << val.data_ << " ";
+//    }
+//    std::cout << "\n";
+
+//
+//    std::vector<int> v;
+//    
+//    for (int i = 0; i < 10; ++i) {
+//        std::cout << "Size : " << v.size() << " Capacity " << v.capacity() << "\n";
+//        v.push_back(i);
+//    }
+//    
+//    
+//    std::vector<int>(v.begin(), v.end()).swap(v);
+//  
+//    std::cout << "\nSize : " << v.size() << " Capacity " << v.capacity() << "\n";
+//
+//    for (auto val : v) {
+//        std::cout << val << " ";
+//    }
+//    std::cout << "\n";
+//    
+    
+}
+
+
+
+
+
+#endif
+
+
+
+
+#if 0
+#include <iostream>
+
+template<typename Iter, typename Pred>
+Iter findIf(Iter begin, Iter end, Pred fn)
+{
+    while (begin != end && fn(*begin)) {
+        ++begin;
+    }
+    return begin;
+}
+
+template<typename Iter, typename Pred>
+int countIf(Iter begin, Iter end, Pred fn)
+{
+    int c = 0;
+    while (begin != end) {
+        if (fn(*begin)) {
+            ++c;
+        }
+        ++begin;
+    }
+    return c;
+}
+
+
+struct Closure {
+    int& x;
+    Closure(int& a) : x(a) {}
+    bool operator()(int v) { return v == x; }
+};
+int main()
+{
+    int arr[] {3,235,2,346,2,31,3,52,452,33,23,5,2};
+    int * end = arr + sizeof(arr)/sizeof(*arr);
+    
+    int x = 2;
+
+    int c = countIf(arr, end,  [&x](int v) { return v == x; });
+    
+    std::cout << c << "\n";
+    
+    //std::cout << countIf(arr, end, Closure() ) << "\n";
+
+    
+}
+
+
+
+
+#endif
+
+
+
+#if 0
+#include <iostream>
 
 struct Door
 {
