@@ -1,6 +1,71 @@
+#if 1
+#include <iostream>
+#include <memory>
+
+
+struct Singleton
+{
+    static Singleton& getInstance() {
+        static Singleton instance;
+        return instance;
+    }
+    
+    char* getData();
+};
+
+struct MS
+{
+    MS() { std::cout << "MS()\n"; }
+    MS(MS const&) { std::cout << "MS(copy)\n"; }
+    MS(MS &&) { std::cout << "MS(move)\n"; }
+    MS& operator=(MS const&) { std::cout << "=(copy)\n"; return *this;}
+    MS& operator=(MS &&) { std::cout << "=(move)\n"; return *this;}
+    ~MS() { std::cout << "~MS()\n"; }
+};
+
+std::unique_ptr<int> getInt() {
+    std::unique_ptr<int> ret(new int(2));
+    return ret;
+}
+
+MS getMS(int x) {
+    MS one, two;
+    if (x % 2 == 0) { return one; }
+    return two;
+}
+
+int main()
+{
+    MS ms;
+    
+    MS ms2(ms);
+    
+    MS ms3(getMS(2));
+    
+    
+    char * d = Singleton::getInstance().getData();
+    
+//    std::unique_ptr<int> ip(new int{3});
+//    
+//    //safe move
+//    std::unique_ptr<int> ip2(getInt());
+//    
+//    std::auto_ptr<int> ip(new int{4});
+//   
+//    //unsafe move
+//    std::auto_ptr<int> ip2(ip);
+//    
+//    *ip = 3;
+}
+
+
+
+#endif
+
+
+#if 0
 #define MY_DEBUG
 
-#if 1
 #include <iostream>
 #include <vector>
 #include <set>
