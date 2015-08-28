@@ -1,3 +1,5 @@
+#define MY_DEBUG
+
 #if 1
 #include <iostream>
 #include <vector>
@@ -28,7 +30,9 @@ int main()
     s.insert(3);
     s.insert(9);
     
-    
+#ifdef MY_DEBUG
+    std::cout << "File: " << __FILE__ << " Line: " << __LINE__ << "\n";
+#endif
     
     std::for_each(s.begin(), s.end(), print);
     
